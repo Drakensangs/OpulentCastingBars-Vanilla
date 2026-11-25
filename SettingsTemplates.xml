@@ -1,0 +1,211 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+	<!--
+	Rows for OCB's pages in ClassicAPI's Options window. They are built on
+	ClassicAPI's own setting rows (Settings\Blizzard_SettingControls.xml) so
+	they look and behave like the window's own settings. The mixins are in
+	SettingsUI.lua.
+	-->
+
+	<!-- 1.12's InputBoxTemplate art, found by key (pooled rows have no name). -->
+	<EditBox name="OCBSettingsInputBoxTemplate" autoFocus="false" enableMouse="true" virtual="true">
+		<Size x="70" y="20"/>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture parentKey="Left" file="Interface\Common\Common-Input-Border">
+					<Size x="8" y="20"/>
+					<Anchors>
+						<Anchor point="LEFT" x="-5" y="0"/>
+					</Anchors>
+					<TexCoords left="0" right="0.0625" top="0" bottom="0.625"/>
+				</Texture>
+				<Texture parentKey="Right" file="Interface\Common\Common-Input-Border">
+					<Size x="8" y="20"/>
+					<Anchors>
+						<Anchor point="RIGHT" x="0" y="0"/>
+					</Anchors>
+					<TexCoords left="0.9375" right="1.0" top="0" bottom="0.625"/>
+				</Texture>
+				<Texture parentKey="Middle" file="Interface\Common\Common-Input-Border">
+					<Size x="10" y="20"/>
+					<Anchors>
+						<Anchor point="LEFT" relativeKey="$parent.Left" relativePoint="RIGHT"/>
+						<Anchor point="RIGHT" relativeKey="$parent.Right" relativePoint="LEFT"/>
+					</Anchors>
+					<TexCoords left="0.0625" right="0.9375" top="0" bottom="0.625"/>
+				</Texture>
+			</Layer>
+		</Layers>
+		<FontString inherits="ChatFontNormal"/>
+	</EditBox>
+
+	<!-- Slider with steppers, plus a box to type an exact value. Rows set
+	     their own Size, as ClassicAPI's rows do: the list reads it as the
+	     row height. -->
+	<Frame name="OCBSettingsSliderControlTemplate" inherits="SettingsSliderControlTemplate" mixin="OCBSettingsSliderControlMixin" virtual="true">
+		<Size x="280" y="26"/>
+		<Frames>
+			<EditBox parentKey="ValueBox" inherits="OCBSettingsInputBoxTemplate" letters="8">
+				<Size x="52" y="20"/>
+			</EditBox>
+		</Frames>
+		<Scripts>
+			<OnLoad method="OnLoad"/>
+		</Scripts>
+	</Frame>
+
+	<!-- Button row with ClassicAPI's silver menu button. -->
+	<Frame name="OCBSettingsButtonControlTemplate" inherits="SettingsListElementTemplate" mixin="OCBSettingsButtonControlMixin" virtual="true">
+		<Size x="280" y="26"/>
+		<Scripts>
+			<OnLoad method="OnLoad"/>
+		</Scripts>
+	</Frame>
+
+	<!-- Dropdown with steppers, plus a button after it (Preview, Copy, ...). -->
+	<Frame name="OCBSettingsDropdownButtonControlTemplate" inherits="SettingsDropdownControlTemplate" mixin="OCBSettingsDropdownButtonControlMixin" virtual="true">
+		<Size x="280" y="26"/>
+		<Scripts>
+			<OnLoad method="OnLoad"/>
+			<OnEvent method="OnEvent"/>
+		</Scripts>
+	</Frame>
+
+	<!-- Two of ClassicAPI's checkbox rows side by side (made in OnLoad). -->
+	<Frame name="OCBSettingsCheckboxPairTemplate" mixin="OCBSettingsCheckboxPairMixin" virtual="true">
+		<Size x="280" y="26"/>
+		<Scripts>
+			<OnLoad method="OnLoad"/>
+		</Scripts>
+	</Frame>
+
+	<!-- Label on the left, plain text in the control column. -->
+	<Frame name="OCBSettingsTextRowTemplate" inherits="SettingsListElementTemplate" mixin="OCBSettingsTextRowMixin" virtual="true">
+		<Size x="280" y="26"/>
+		<Layers>
+			<Layer level="OVERLAY">
+				<FontString parentKey="Value" inherits="GameFontHighlight" justifyH="LEFT">
+					<Anchors>
+						<Anchor point="LEFT" relativePoint="CENTER" x="-80" y="0"/>
+						<Anchor point="RIGHT" x="-20" y="0"/>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnLoad method="OnLoad"/>
+		</Scripts>
+	</Frame>
+
+	<!-- Wrapped text across the page. -->
+	<Frame name="OCBSettingsNoteTemplate" mixin="OCBSettingsNoteMixin" virtual="true">
+		<Size x="280" y="26"/>
+		<Layers>
+			<Layer level="OVERLAY">
+				<FontString parentKey="Text" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
+					<Anchors>
+						<Anchor point="TOPLEFT" x="37" y="0"/>
+						<Anchor point="TOPRIGHT" x="-20" y="0"/>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+	</Frame>
+
+	<!-- Spell ID box with the spell's name after it. -->
+	<Frame name="OCBSettingsSpellInputTemplate" inherits="SettingsListElementTemplate" mixin="OCBSettingsSpellInputMixin" virtual="true">
+		<Size x="280" y="26"/>
+		<Frames>
+			<EditBox parentKey="EditBox" inherits="OCBSettingsInputBoxTemplate" numeric="true" letters="7">
+				<Anchors>
+					<Anchor point="LEFT" relativePoint="CENTER" x="-74" y="0"/>
+				</Anchors>
+			</EditBox>
+		</Frames>
+		<Layers>
+			<Layer level="OVERLAY">
+				<FontString parentKey="SpellName" inherits="GameFontHighlight" justifyH="LEFT">
+					<Size y="16"/>
+					<Anchors>
+						<Anchor point="LEFT" relativeKey="$parent.EditBox" relativePoint="RIGHT" x="12" y="0"/>
+						<Anchor point="RIGHT" x="-20" y="0"/>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnLoad method="OnLoad"/>
+		</Scripts>
+	</Frame>
+
+	<!-- One entry of a list box: icon and text, hover and selection. -->
+	<Button name="OCBSettingsListEntryTemplate" virtual="true">
+		<Size y="20"/>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture parentKey="Selected" hidden="true" setAllPoints="true">
+					<Color r="1" g="0.82" b="0" a="0.2"/>
+				</Texture>
+			</Layer>
+			<Layer level="ARTWORK">
+				<Texture parentKey="Icon">
+					<Size x="16" y="16"/>
+					<Anchors>
+						<Anchor point="LEFT" x="6" y="0"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+			<Layer level="OVERLAY">
+				<FontString parentKey="Label" inherits="GameFontHighlightSmall" justifyH="LEFT" wordwrap="false">
+					<Size y="14"/>
+					<Anchors>
+						<Anchor point="LEFT" relativeKey="$parent.Icon" relativePoint="RIGHT" x="6" y="0"/>
+						<Anchor point="RIGHT" x="-4" y="0"/>
+					</Anchors>
+				</FontString>
+			</Layer>
+			<Layer level="HIGHLIGHT">
+				<Texture parentKey="Highlight" setAllPoints="true">
+					<Color r="1" g="1" b="1" a="0.1"/>
+				</Texture>
+			</Layer>
+		</Layers>
+	</Button>
+
+	<!-- A list with ClassicAPI's scroll bar, across the page. -->
+	<Frame name="OCBSettingsListBoxTemplate" mixin="OCBSettingsListBoxMixin" virtual="true">
+		<Size x="280" y="120"/>
+		<Frames>
+			<Frame parentKey="Inset" inherits="BackdropTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT" x="31" y="0"/>
+					<Anchor point="BOTTOMRIGHT" x="-20" y="0"/>
+				</Anchors>
+			</Frame>
+			<Frame parentKey="ScrollBox" inherits="WowScrollBoxList">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeKey="$parent.Inset" relativePoint="TOPLEFT" x="4" y="-4"/>
+					<Anchor point="BOTTOMRIGHT" relativeKey="$parent.Inset" relativePoint="BOTTOMRIGHT" x="-18" y="4"/>
+				</Anchors>
+			</Frame>
+			<EventFrame parentKey="ScrollBar" inherits="MinimalScrollBar">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeKey="$parent.ScrollBox" relativePoint="TOPRIGHT" x="5" y="-2"/>
+					<Anchor point="BOTTOMLEFT" relativeKey="$parent.ScrollBox" relativePoint="BOTTOMRIGHT" x="5" y="2"/>
+				</Anchors>
+			</EventFrame>
+		</Frames>
+		<Layers>
+			<Layer level="OVERLAY">
+				<FontString parentKey="EmptyText" inherits="GameFontDisable" hidden="true">
+					<Anchors>
+						<Anchor point="CENTER" relativeKey="$parent.Inset" relativePoint="CENTER"/>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnLoad method="OnLoad"/>
+			<OnShow method="OnShow"/>
+		</Scripts>
+	</Frame>
+</Ui>
