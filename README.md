@@ -2,7 +2,7 @@
 
 > [!IMPORTANT]
 > **Opulent Casting Bars** requires [**ClassicAPI**](https://github.com/brues-code/ClassicAPI) & [**VanillaHelpers**](https://github.com/isfir/VanillaHelpers)* in order to function.
-> * Technically, the addon will work without VanillaHelpers; however, due to the size and number textures, some bars will not display properly on the first cast. Thus, for the addon to work 100% without issues, it's recommended you use VanillaHelpers as well.
+> * Technically, the addon will work without VanillaHelpers; however, due to the size and number of textures, some bars will not display properly on the first cast. Thus, for the addon to work 100% without issues, it's recommended you use VanillaHelpers as well.
 
 [**SimonPdv**](https://www.curseforge.com/members/simonpdv/projects)'s [**Opulent Casting Bars**](https://www.curseforge.com/wow/addons/opulent-casting-bars) ported to 1.12.1 with the following features:
 
